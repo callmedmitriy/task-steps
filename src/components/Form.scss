@@ -1,0 +1,15 @@
+.form {
+	display: flex;
+	flex-direction: column;
+	max-width: 640px;
+	margin: 10px auto;
+
+	.group {
+		margin-bottom: 10px;
+		
+		label {
+			display: inline-block;
+			width: 150px;
+		}
+	}
+}
