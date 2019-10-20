@@ -1,15 +1,12 @@
 import React, { useState } from 'react'
 
 import Training from '../models/Training'
-import List from './List'
 
-import './Form.scss'
 
-function Form() {
+function Form(props) {
   
-  const [trainingList, setTrainingList] = useState([new Training('2019-10-16',132)])
-  const [date,setDate] = useState()
-  const [distance,setDistance] = useState()
+  const [date,setDate] = useState('2019-10-08')
+  const [distance,setDistance] = useState('10')
 
   const dateChange = ({target}) => {
 
@@ -28,29 +25,13 @@ function Form() {
 
     evt.preventDefault()
 
-    let insert = true
-    
-    trainingList.forEach(function(el){
-      if (el.date === date) {
-       el.distance = parseFloat(el.distance) + parseFloat(distance)
-       insert = false
-      }
-    })
-    
-    if (insert) {
-      setTrainingList(prevTrainings => [...prevTrainings, new Training(date,distance)])
-    }
-    /*setTrainingList(prevTrainings => prevTrainings.map(
-      o => o.date === date ? new Training(date,parseFloat(o.distance) + parseFloat(distance)) : o
-    ))*/
+    props.add(new Training(date,distance))
+
   }
 
-  const removeTraining = (dt) => {
-    setTrainingList(prevTrainings => prevTrainings.filter(o => o.date !== dt))
-  }
+
 
   return (
-    <div className="wrapper">
       <form className="form">
         <div className="group">
           <label htmlFor="date">Дата</label>
@@ -64,8 +45,6 @@ function Form() {
           <button onClick={addTraining}>Добавить</button>
         </div>
       </form>
-      <List list={trainingList} remove={removeTraining}/>
-    </div>
   )
 }
 
